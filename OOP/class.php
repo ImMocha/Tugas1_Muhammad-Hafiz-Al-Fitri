@@ -6,10 +6,6 @@ class Mahasiswa {
             $dosen = 'dosen',
             $semester = 0;
 
-
-
-
-
     public function ubah() {
         return  "Nama :".$this->nama. 
                         "<br>". 
