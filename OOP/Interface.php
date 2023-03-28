@@ -70,8 +70,6 @@ abstract class Mahasiswa {
 
     abstract public function getInfo();
 
-
-
 }
 
 
