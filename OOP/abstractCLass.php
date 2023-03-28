@@ -1,7 +1,7 @@
 <?php
 
 
-class Mahasiswa {
+abstract class Mahasiswa {
     private  $nama,
             $dosen,
             $semester, 
@@ -63,13 +63,17 @@ class Mahasiswa {
         return  "Nama : {$this->nama} ({$this->dosen}) |";
     }
 
-    public function getInfoMahasiswa() {
+    abstract public function getInfoMahasiswa();
+
+
+    public function getInfo() {
         $str = 
         "{$this->getLabel()} <br>
         NIM : $this->nim | <br>
         Semester : $this->semester | <br>";
         return $str;
     }
+
 }
 
 
@@ -83,7 +87,7 @@ class Aktif extends Mahasiswa {
     }
 
     public function getInfoMahasiswa() {
-        $str =  parent::getInfoMahasiswa() . 
+        $str =  $this->getInfo() . 
                 "Status : Aktif <br> 
                 Mata Kuliah : $this->MKumum Umum |<hr>";
         return $str;
@@ -102,7 +106,7 @@ class Terminal extends Mahasiswa {
     }
 
     public function getInfoMahasiswa() {
-        $str =  parent::getInfoMahasiswa() .
+        $str =  $this->getInfo() .
                 "Status : Terminal | <br>
                 Mata Kuliah : $this->MKtambahan Tambahan | <hr>";
         return $str;
@@ -112,12 +116,23 @@ class Terminal extends Mahasiswa {
 
 
 
-class Cetak {
-    public function cetakMHS($mahasiswa)
-    {
-        $str = "{$mahasiswa->nama} ($mahasiswa->nim) | Semester {$mahasiswa->semester} | {$mahasiswa->dosen} <hr>";
+class CetakInfoMahasiswa {
+    public $daftarMahasiswa = [];
+
+    public function tambahMahasiswa(Mahasiswa $mahasiswa) {
+        $this->daftarMahasiswa[] = $mahasiswa;
+    }
+
+    public function cetak() {
+        $str = "DAFTAR MAHASISWA : <br> <br>";
+
+        foreach ($this->daftarMahasiswa as $mhs) {
+            $str .= $mhs -> getInfoMahasiswa();
+        }
+
         return $str;
     }
+    
 }
 
 
@@ -127,35 +142,13 @@ $mahasiswa2 = new Aktif("Pretty Swastika", "E020321024","Evi Lestari",4,5);
 $mahasiswa3 = new Terminal("Andre", "E020321030", "Sari Hepi",6,4,0);
 $mahasiswa4 = new Terminal("Faisal", "E020321014", "Sa'id Ramadhan",2,2,0);
 
-echo $mahasiswa1 ->getInfoMahasiswa();
-echo $mahasiswa2 ->getInfoMahasiswa();
-echo $mahasiswa3 ->getInfoMahasiswa();
-echo $mahasiswa4 ->getInfoMahasiswa();
+$CetakMahasiswa = new CetakInfoMahasiswa;
 
-echo "<br>";
-echo "<br>";
+$CetakMahasiswa -> tambahMahasiswa($mahasiswa1);
+$CetakMahasiswa -> tambahMahasiswa($mahasiswa2);
+$CetakMahasiswa -> tambahMahasiswa($mahasiswa3);
+$CetakMahasiswa -> tambahMahasiswa($mahasiswa4);
 
-// $mahasiswa1 -> nim ='E020200202';  ***Tidak Bisa Diubah Karena Var nim Bersifar private
-echo $mahasiswa1 -> getNim();
+echo $CetakMahasiswa -> cetak();
 
-echo "<br>";
-echo "<br>";
-
-$mahasiswa3 ->setKompensasi(5);
-echo $mahasiswa3 -> GetKompensasi();
-
-echo "<br>";
-echo "<br>";
-
-// $mahasiswa5 = new Mahasiswa();  
-// echo $mahasiswa5 ->nama;    **Akan Error Karena Data Masuk Dari Luar Class (karena Private)
-
-$mahasiswa1 -> nama = 'hafiz'; //Data Tidak Akan Berubah (karena Private)
-echo $mahasiswa1-> getNama();
-
-echo "<br>";
-echo "<br>";
-
-$mahasiswa1 -> setNama('hafiz');
-echo $mahasiswa1 -> getNama();
 
