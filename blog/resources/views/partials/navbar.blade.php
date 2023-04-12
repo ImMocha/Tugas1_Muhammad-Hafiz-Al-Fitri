@@ -8,7 +8,12 @@
         <div class="navbar-nav">
             <a class="nav-link {{ ($title==='HOME') ? 'active' : '' }}" href="/">Home</a>
             <a class="nav-link {{ ($title==='ABOUT') ? 'active' : '' }}" href="/about">About</a>
-            <a class="nav-link {{ ($title==='POST') ? 'active' : '' }}" href="/post">Post</a>
+            <a class="nav-link 
+            @if ($title === 'POST')
+                return active
+            @elseif ($title === 'SINGLE POST')
+                return active
+            @endif" href="/blog">Blog</a>   
         </div>
     </div>
     </div>
