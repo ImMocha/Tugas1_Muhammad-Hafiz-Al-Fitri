@@ -10,10 +10,11 @@
             <a class="nav-link {{ ($title==='ABOUT') ? 'active' : '' }}" href="/about">About</a>
             <a class="nav-link 
             @if ($title === 'POST')
-                return active
+            return active
             @elseif ($title === 'SINGLE POST')
-                return active
+            return active
             @endif" href="/blog">Blog</a>   
+            <a class="nav-link {{ ($title==='Post Categories') ? 'active' : '' }}" href="/categories">Categories</a>
         </div>
     </div>
     </div>
