@@ -31,6 +31,7 @@
         @else
         <div class="navbar-nav ms-auto">
             <a href="/login" class="nav-link active"><b><i class="bi bi-box-arrow-in-right"></i> Login</b></a>
+            <a href="/Register" class="nav-link active btn btn-outline-secondary"><b><i class="bi bi-box-arrow-in-right"></i> Register</b></a>
         </div>
         @endauth
     </div>

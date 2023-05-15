@@ -26,20 +26,26 @@
 
 
 @if ( $posts->count() )
-<a class="text-decoration-none" href="posts/{{ $posts[0]->slug }}">
+<a class="text-decoration-none text-dark" href="posts/{{ $posts[0]->slug }}">
     <div class="card mb-3 text-center">
 
         @if ($posts[0]->image)
             <div style="max-height: 450px;overflow: hidden;">
                 <img src="{{ asset('storage/' . $posts[0]->image) }}" class="img-fluid" alt="...">                    
             </div>
-        @else
+        @elseif($posts[0]->category)
             <img src="https://source.unsplash.com/1200x400/?{{ $posts[0]->category->name }}" class="img-fluid mt-3" alt="...">
+        @else 
+            <img src="https://source.unsplash.com/1200x400/?random" class="img-fluid mt-3" alt="...">
         @endif
 
         <div class="card-body">
             <h3 class="card-title">{{ $posts[0]->title }}</h3>
-            <p>By : <a class="text-decoration-none" href="blog?author={{ $posts[0]->author->username }}">{{ $posts[0]->author->name }}</a> in <a class="text-decoration-none" href="/blog?category={{ $posts[0]->category->slug }}">{{ $posts[0]->category->name }}</a> | <small class="text-body-secondary">{{ $posts[0]->created_at->diffForHumans() }}</small></p>
+            @if ($posts[0]->category)
+                <p class="card-text">By : <a class="text-decoration-none" href="/blog?author={{ $posts[0]->author->username }}">{{ $posts[0]->author->name }}</a> in <a class="text-decoration-none" href="/blog?category={{ $posts[0]->category->slug }}">{{ $posts[0]->category->name }}</a></p>
+            @else
+                <p class="card-text">By : <a class="text-decoration-none" href="/blog?author={{ $posts[0]->author->username }}">{{ $posts[0]->author->name }}</a> in <span class="text-muted fst-italic">Undifined</span></p>                    
+            @endif            
             <p class="card-text">{{ $posts[0]->excerpt }}</p>
             <a class="text-decoration-none btn btn-dark" href="../posts/{{ $posts[0]->slug }}">Read More</a>
         </div>
@@ -55,13 +61,19 @@
                 <div style="max-height: 350px;overflow: hidden;">
                     <img src="{{ asset('storage/' . $post->image) }}" class="card-img-top" alt="...">
                 </div>
-            @else
+            @elseif($post->category)
                 <img src="https://source.unsplash.com/800x500/?{{ $post->category->name }}" class="card-img-top" alt="...">
+            @else
+                <img src="https://source.unsplash.com/800x500/?random" class="card-img-top" alt="...">            
             @endif
 
             <div class="card-body position-relative pb-5">
                 <h5 class="card-title"><a class="text-decoration-none" href="../posts/{{ $post->slug }}">{{ $post->title }}</a></h5>
-                <p class="card-text">By : <a class="text-decoration-none" href="/blog?author={{ $post->author->username }}">{{ $post->author->name }}</a> in <a class="text-decoration-none" href="/blog?category={{ $post->category->slug }}">{{ $post->category->name }}</a></p>
+                @if ($post->category)
+                    <p class="card-text">By : <a class="text-decoration-none" href="/blog?author={{ $post->author->username }}">{{ $post->author->name }}</a> in <a class="text-decoration-none" href="/blog?category={{ $post->category->slug }}">{{ $post->category->name }}</a></p>
+                @else
+                    <p class="card-text">By : <a class="text-decoration-none" href="/blog?author={{ $post->author->username }}">{{ $post->author->name }}</a> in <span class="text-muted fst-italic">Undifined</span></p>                    
+                @endif
                 <p class="card-text">{{ $post->excerpt }}</p>
                 <a class="position-absolute btn btn-dark mb-2" style="bottom: 0" href="../posts/{{ $post->slug }}" >Read More</a>
             </div>
@@ -69,7 +81,6 @@
     </div>
     @endforeach
 </div>
-
 
 @else
     <h2 class="text-center">Post Not Found.</h2>

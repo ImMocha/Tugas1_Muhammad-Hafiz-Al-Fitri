@@ -35,10 +35,9 @@
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $category->name }}</td>
                 <td>
-                    <a class="badge bg-info" href="/dashboard/posts/{{ $category->slug }}"><span data-feather="eye"class="align-text-bottom"></span></a>
-                    <a class="badge bg-success" href="/dashboard/posts/{{ $category->slug }}/edit"><span data-feather="edit"class="align-text-bottom"></span></a>
+                    <a class="badge bg-success" href="/dashboard/categories/{{ $category->slug }}/edit"><span data-feather="edit"class="align-text-bottom"></span></a>
 
-                    <form action="/dashboard/posts/{{ $category->slug }}" method="POST" class="d-inline">
+                    <form action="/dashboard/categories/{{ $category->slug }}" method="POST" class="d-inline">
                         @method('delete')
                         @csrf
                         <button onclick="return confirm('Yakin Ingin Menghapus Post {{ $category->name }} ?')" class="badge bg-danger border-0"><span data-feather="trash-2"class="align-text-bottom"></span></button>

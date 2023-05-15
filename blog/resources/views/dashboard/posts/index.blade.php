@@ -35,7 +35,11 @@
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $post->title }}</td>
+                @if ($post->category)
                 <td>{{ $post->category->name }}</td>
+                @else
+                <td class="fst-italic text-muted">Undifined</td>    
+                @endif
                 <td>
                     <a class="badge bg-info" href="/dashboard/posts/{{ $post->slug }}"><span data-feather="eye"class="align-text-bottom"></span></a>
                     <a class="badge bg-success" href="/dashboard/posts/{{ $post->slug }}/edit"><span data-feather="edit"class="align-text-bottom"></span></a>
