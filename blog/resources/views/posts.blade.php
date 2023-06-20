@@ -62,7 +62,7 @@
                     <img src="{{ asset('storage/' . $post->image) }}" class="card-img-top" alt="...">
                 </div>
             @elseif($post->category)
-                <img src="https://source.unsplash.com/800x500/?{{ $post->category->name }}" class="card-img-top" alt="...">
+                <img src="https://source.unsplash.com/800x500/?{{ $post->category->name}} {{ $loop->iteration }}" class="card-img-top" alt="...">
             @else
                 <img src="https://source.unsplash.com/800x500/?random" class="card-img-top" alt="...">            
             @endif

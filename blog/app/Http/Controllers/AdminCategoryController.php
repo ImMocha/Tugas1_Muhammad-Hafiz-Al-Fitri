@@ -71,9 +71,6 @@ class AdminCategoryController extends Controller
 
         $validateData = $request->validate($rules);
 
-
-
-
         Category::where('id',$category->id)->update($validateData);
 
         return redirect('/dashboard/categories')->with('success', 'Post Baru Telah Berhasil DiEdit!');

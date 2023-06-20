@@ -46,7 +46,6 @@
                     @else
                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                     @endif
-
                 @endforeach
             </select>        
         </div>
